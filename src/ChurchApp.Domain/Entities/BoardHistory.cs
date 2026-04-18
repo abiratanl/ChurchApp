@@ -1,6 +1,6 @@
 namespace ChurchApp.Domain.Entities;
 
-public class BoardMemberHistory
+public class BoardHistory
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid MemberId { get; set; }

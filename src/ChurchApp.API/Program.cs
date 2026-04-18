@@ -1,7 +1,15 @@
+using ChurchApp.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// 1. Pegue a string de conexão do appsettings
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. Registre o ApplicationDbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
