@@ -1,12 +1,13 @@
 namespace ChurchApp.Domain.Enums;
 
+// O que o usuário PODE FAZER no sistema (Nível de acesso)
 public enum UserRole
 {
-    Admin = 1,
-    Presidente = 2,
-    Secretario = 3,
-    Dirigente = 4,
-    Tesoureiro = 5,
-    Patrimonio = 6,
-    Membro = 7
+    Membro = 1,      // Acesso básico (ver eventos, dados próprios)
+    Patrimonio = 2,
+    Tesoureiro = 3,
+    Secretario = 4,  // Gestão de membros
+    Dirigente = 5,   // Gestão total da congregação local
+    Presidente = 6,  // Gestão total da sede e sub-congregações
+    Admin = 7        // Desenvolvedor / TI
 }

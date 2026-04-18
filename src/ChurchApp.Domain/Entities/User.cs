@@ -1,23 +1,20 @@
-using ChurchApp.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using ChurchApp.Domain.Enums;
 
 namespace ChurchApp.Domain.Entities;
 
-public class User : IdentityUser
+public class User : IdentityUser<Guid> // Usando Guid explicitamente no Identity
 {
-    // O IdentityUser já possui: Id, Email, PasswordHash, PhoneNumber, etc.
-    
-    public string FullName { get; set; } = string.Empty;
-    public UserRole Role { get; set; }
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    
-    // Controle de senha
     public bool MustChangePassword { get; set; } = true;
+
+    // Perfil
+    public UserRole UserRole { get; set; }
     
-    // Multi-tenant (Segregação por Congregação)
-    public int CongregationId { get; set; }
+    // Chave Estrangeira obrigatória para Member
+    public Guid MemberId { get; set; }
     
-    // Observação: O Identity já gerencia tokens de reset nativamente, 
-    // mas se precisar de campos customizados, eles entram aqui.
+    // Propriedade de Navegação: O vínculo de volta para o membro
+    public virtual Member Member { get; set; } = null!;
 }
