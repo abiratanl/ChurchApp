@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChurchApp.Infrastructure.Persistence;
 
-public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
         : base(options) { }
@@ -22,20 +22,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     {
         base.OnModelCreating(builder);
 
-        // Configuração do Address como Complex Type (Disponível no .NET 10)
-        builder.Entity<Member>().ComplexProperty(m => m.Address);
-        builder.Entity<Congregation>().ComplexProperty(c => c.Address);
-
-        // Configuração da relação 1:1 entre Member e User
-        builder.Entity<Member>()
-            .HasOne(m => m.User)
-            .WithOne(u => u.Member)
-            .HasForeignKey<User>(u => u.MemberId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        // Garantir que a plaqueta do patrimônio seja única
-        builder.Entity<Asset>()
-            .HasIndex(a => a.TagNumber)
-            .IsUnique();
+        // Esta linha varre o assembly atual e aplica todas as configurações automaticamente
+        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

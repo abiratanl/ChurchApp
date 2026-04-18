@@ -1,0 +1,12 @@
+.bin/
+.obj/
+.git/
+.idea/
+.vs/
+.vscode/
+/out/
+dist/
+node_modules/
+docker-compose*
+Dockerfile*
+.env

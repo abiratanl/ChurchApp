@@ -10,6 +10,6 @@ public class Congregation
     public bool IsMainChurch { get; set; } // Define se é a Sede
 
     // Relacionamentos
-    public virtual ICollection<User> Members { get; set; } = new List<User>();
+    public virtual ICollection<Member> Members { get; set; } = new List<Member>();
     public virtual ICollection<CongregationLeaderHistory> LeaderHistories { get; set; } = new List<CongregationLeaderHistory>();
 }
